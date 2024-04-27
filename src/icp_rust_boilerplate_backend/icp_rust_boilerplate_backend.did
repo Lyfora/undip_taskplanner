@@ -1,3 +1,15 @@
+type Error = variant { NotFound : record { msg : text } };
+type Result = variant { Ok : Task; Err : Error };
+type Task = record {
+  id : nat64;
+  updated_at : opt nat64;
+  date : text;
+  created_at : nat64;
+  author : text;
+  activity : text;
+};
+type TaskPayload = record { date : text; author : text; activity : text };
 service : {
-    "greet": (text) -> (text) query;
+  add_task : (TaskPayload) -> (opt Task);
+  get_activity : (nat64) -> (Result) query;
 }
